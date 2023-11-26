@@ -50,39 +50,72 @@ Adjust the configuration settings in config.yaml to match your environment and d
 
 ## Usage
 ### Running the Pipeline
-Execute the data pipeline with the following command:
 
+1. Create network for Kafka and Cassandra
 ```bash
 docker network create kafka-network
 docker network create cassandra-network
-docker network ls
+docker network ls   # Check if successfully created
+```
 
+2. Set up Kafka and Cassandra containers 
+```bash
+# Run Kafka and Cassandra 
 docker-compose -f cassandra/docker-compose.yml up -d
 docker-compose -f kafka/docker-compose.yml up -d
-docker ps -a
 
-# WSL command
+# Check all running containers if Kafka and Cassandra are running
+docker ps -a    
+```
+
+3. Open WSL or Ubuntu and execute this command
+```bash
+# Check if all sink from Kafka is created if not, go to Step 4 and check it again, else skip Step 4
 curl -X GET http://localhost:8083/connectors
+```
 
-# access to kafka-connect shell and run this command (this is a bug so you need to run it indirect)
+4. Access to kafka-connect shell and run this command (this is a bug so you need to run it indirect)
+```bash
 ./start-and-wait.sh
+```
 
+5. Initialize Provider and Consumer for Kafka with 3 different APIs
+```bash
 docker-compose -f owm-producer/docker-compose.yml up -d
 docker-compose -f faker-producer/docker-compose.yml up -d
 docker-compose -f iqair-producer/docker-compose.yml up -d
 
 
 docker-compose -f consumers/docker-compose.yml up -d
+```
 
+6. Open Cassandra via Docker and check if all the data has been flowed to the database
+```bash
 # run it to access Cassandra
 docker exec -it cassandra bash
+
+# Access Cassandra Shell
 cqlsh
+
+# Check all keyspaces
 desc keyspace;
+
 use kafkapipeline;
+
+# Check all tables in a keyspace
 desc tables;
+
+# Check data
 select * from weatherreport;
 select * from fakerdata;
+select * from iqairdata;
 
+# Exit Cassandra
+exit
+```
+
+7. Set up Data Visualization (Not done yet)
+```bash
 docker-compose -f data-vis/docker-compose.yml up -d
 ```
 
