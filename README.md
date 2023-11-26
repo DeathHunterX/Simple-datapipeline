@@ -1,7 +1,7 @@
 # Data Pipeline Project
 
 ## Overview
-- This is my first assignment in EEET2574 - Big Data for Engineering
+- This is my first assignment in EEET2574 - Big Data for Engineering (RMIT University)
 - The origin structure: https://github.com/salcaino/sfucmpt733
 
 ## Tools & Technologies
