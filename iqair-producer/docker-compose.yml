@@ -1,0 +1,15 @@
+version: '3'
+
+services:
+  iqairmap:
+    container_name: iqairmap
+    build: .
+    environment:
+      KAFKA_BROKER_URL: broker:9092
+      TOPIC_NAME: iqair
+      SLEEP_TIME: 90
+
+networks:
+  default:
+    external:
+      name: kafka-network

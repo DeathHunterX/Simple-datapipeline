@@ -20,6 +20,16 @@
 
 - **Windows Terminal:** Windows Terminal provides a unified command-line interface for executing commands and managing the project.
 
+## APIs
+The project integrates with the following APIs:
+
+- OpenWeather API: Used for retrieving weather data for inclusion in the data pipeline.
+
+- IQAir API: Utilized to gather air quality information for integration into the data processing workflow.
+
+- Faker: Faker is used for generating synthetic or fake data during the development and testing phases.
+
+
 ## Prerequisites
 
 Before using the data pipeline, ensure the following prerequisites are met:
@@ -32,8 +42,8 @@ Before using the data pipeline, ensure the following prerequisites are met:
 Clone the repository to your local machine:
 
 ```bash
-git clone https://github.com/your-username/data-pipeline.git
-cd data-pipeline
+git clone https://github.com/DeathHunterX/Simple-datapipeline.git
+cd Simple-datapipeline
 ```
 ### Configuration
 Adjust the configuration settings in config.yaml to match your environment and data sources. This includes specifying source and destination URLs, API keys, Kafka and Cassandra connection details, and other relevant parameters.
@@ -41,6 +51,49 @@ Adjust the configuration settings in config.yaml to match your environment and d
 ## Usage
 ### Running the Pipeline
 Execute the data pipeline with the following command:
+
+```bash
+docker network create kafka-network
+docker network create cassandra-network
+docker network ls
+
+docker-compose -f cassandra/docker-compose.yml up -d
+docker-compose -f kafka/docker-compose.yml up -d
+docker ps -a
+
+# WSL command
+curl -X GET http://localhost:8083/connectors
+
+# access to kafka-connect shell and run this command (this is a bug so you need to run it indirect)
+./start-and-wait.sh
+
+docker-compose -f owm-producer/docker-compose.yml up -d
+docker-compose -f faker-producer/docker-compose.yml up -d
+docker-compose -f iqair-producer/docker-compose.yml up -d
+
+
+docker-compose -f consumers/docker-compose.yml up -d
+
+# run it to access Cassandra
+docker exec -it cassandra bash
+cqlsh
+desc keyspace;
+use kafkapipeline;
+desc tables;
+select * from weatherreport;
+select * from fakerdata;
+
+docker-compose -f data-vis/docker-compose.yml up -d
+```
+
+Output:
+- Kafka:
+    http://localhost:9000   (username: admin; password: bigbang)
+
+- Data Visualization:
+    http://localhost:8888
+
+
 
 ## License
 This project is licensed under the MIT License. Feel free to use, modify, and distribute the code as needed.
