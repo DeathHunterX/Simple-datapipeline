@@ -192,7 +192,7 @@ def getTwitterDF():
     return getDF(TWITTER_TABLE)
 def getFakerDF():
     return getDF(FAKER_TABLE)
-def getFakerDF():
+def getIQAirDF():
     return getDF(IQAIR_TABLE)
 
 def getDF(source_table):

@@ -62,6 +62,8 @@ def flatten_and_modify_json(json_obj, parent_key='', sep='_'):
             items.append((new_key, value))
     return dict(items)
 
+# Get random state function
+# Random getting 1 state for going next step is get data in random city
 def get_random_state(api_key, country):
     base_url = f"{iqair_api_url}states?country={country}&key={api_key}"
 
@@ -74,6 +76,8 @@ def get_random_state(api_key, country):
         print(f"Error getting states: {response.status_code}")
         return None
 
+# Get random city function
+# Random getting 1 city for going next step is get data in specific city and state
 def get_random_city(api_key, state, country):
     base_url = f"{iqair_api_url}cities?state={state}&country={country}&key={api_key}"
 
@@ -97,6 +101,7 @@ def get_air_quality(api_key, city, state, country):
         print(f"Error getting air quality data. Status code: {response.status_code}, Response content: {response.content}")
         return None
 
+# Get IQAir data
 def get_IQAir_data(country):
     # air_quality_data = {}
 

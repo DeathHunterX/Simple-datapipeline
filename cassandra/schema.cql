@@ -1,10 +1,5 @@
 USE kafkapipeline;
 
-DROP TABLE IF EXISTS weatherreport;
-DROP TABLE IF EXISTS twitterdata;
-DROP TABLE IF EXISTS fakerdata;
-DROP TABLE IF EXISTS iqairdata;
-
 
 CREATE TABLE weatherreport (
   forecastdate TIMESTAMP,

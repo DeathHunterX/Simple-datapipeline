@@ -5,7 +5,7 @@ from decimal import Decimal
 from faker import Faker
 import json
 
-fake = Faker()
+fake = Faker('en_US')
 
 KAFKA_BROKER_URL = os.environ.get("KAFKA_BROKER_URL")
 TOPIC_NAME = os.environ.get("TOPIC_NAME")
