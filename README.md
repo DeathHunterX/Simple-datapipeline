@@ -102,7 +102,7 @@ docker ps -a
     + Enable Active OffsetCache Click Save.  
 
 4. Open WSL or Ubuntu and execute this command. It will 
-. If the output is `["twittersink","weathersink","flightlogssink","fakersink"]`, skip Step 5. Otherwise, go to next step
+. If the output is `["twittersink","weathersink","fakersink", "iqairsink"]`, skip Step 5. Otherwise, go to next step
 
 ```bash
 # Check if all sink from Kafka is created. If not, go to Step 5 and check it again, else skip next step
