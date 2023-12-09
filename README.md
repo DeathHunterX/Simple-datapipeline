@@ -137,7 +137,7 @@ docker exec -it cassandra bash
 cqlsh
 
 # Check all keyspaces
-desc keyspace;
+desc keyspaces;
 
 use kafkapipeline;
 
@@ -149,7 +149,10 @@ select * from weatherreport;
 select * from fakerdata;
 select * from iqairdata;
 
-# Exit Cassandra
+# Exit Cassandra Shell
+exit
+
+# Exit Docker Container
 exit
 ```
 
